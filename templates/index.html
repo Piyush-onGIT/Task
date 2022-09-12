@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Task</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<style>
+    body {
+        background-color: aquamarine;
+    }
+
+    .forms {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* margin-top: auto; */
+    }
+
+    .form-1 {
+        height: 500px;
+        width: 500px;
+        background-color: black;
+        border: 2px solid salmon;
+    }
+
+    .form-2 {
+        height: 500px;
+        width: 500px;
+        background-color: black;
+        border: 2px solid salmon;
+    }
+
+    .signup,
+    .login {
+        border: 2px solid tomato;
+        width: 80%;
+        border-radius: 10px;
+        background-color: orange;
+    }
+
+    .login {
+        margin-top: 36%;
+    }
+
+    .signup {
+        margin-top: 20%;
+    }
+</style>
+
+<script type="text/javascript">
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+    }
+</script>
+
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload=""></body>
+<!-- <body> -->
+    {% if messages %} {% for msg in messages %}
+    <script>
+        console.log("{{msg}}");
+        if ("{{msg}}" == 7) {
+            swal({
+                "title": "Success",
+                "text": "Account created",
+                "icon": "success",
+                "button": "Login"
+            }).then(() => {
+                history.back();
+            });
+        }
+        else if ("{{msg}}" == 1) {
+            swal({
+                "title": "Alert",
+                "text": "Username already exists",
+                "icon": "warning",
+                "button": "Go Back"
+            }).then(() => {
+                history.back();
+            });
+        }
+        else if ("{{msg}}" == 2) {
+            swal({
+                "title": "Alert",
+                "text": "Password doesn't match",
+                "icon": "warning",
+                "button": "Go Back"
+            }).then((value) => {
+                history.back();
+            });
+        }
+        else if ("{{msg}}" == 3) {
+            swal({
+                "title": "Alert",
+                "text": "User with this email already exists",
+                "icon": "warning",
+                "button": "Go Back"
+            }).then((value) => {
+                history.back();
+            });
+        }
+        else if ("{{msg}}" == 4) {
+            swal({
+                "title": "Yayy",
+                "text": "Logged in",
+                "icon": "success",
+                "button": "Proceed"
+            }).then((value) => {
+                history.back();
+            });
+        } else if ("{{msg}}" == 5) {
+            swal({
+                "title": "Alert",
+                "text": "Wrong password",
+                "icon": "warning",
+                "button": "Go Back"
+            }).then((value) => {
+                history.back();
+            });
+        } else if ("{{msg}}" == 6) {
+            swal({
+                "title": "Alert",
+                "text": "No such account exists",
+                "icon": "warning",
+                "button": "Go Back"
+            }).then((value) => {
+                history.back();
+            });
+        }
+    </script>
+    {% endfor %} {% endif %}
+    <div class="forms">
+        <div class="form-1">
+            <center>
+                <form class="signup" action="signup" method="POST">
+                    {% csrf_token %}
+                    <br />
+                    <input required type="text" placeholder="Full name" name="fname">
+                    <p></p>
+                    <input required type="email" placeholder="username@example.com" name="email">
+                    <p></p>
+                    <input required type="text" placeholder="Username" name="usnm">
+                    <p></p>
+                    <input required type="password" placeholder="Your password" name="pswd">
+                    <p></p>
+                    <input required type="password" placeholder="Re-type password" name="rpswd">
+                    <p></p>
+                    <input required type="submit" class="btn-signin" value="Sign up">
+                    <p></p>
+                </form>
+            </center>
+        </div>
+        <div class="form-2">
+            <center>
+                <form class="login" action="login" method="POST">
+                    {% csrf_token %}
+                    <br />
+                    <input required type="text" placeholder="Username" name="usnm">
+                    <p></p>
+                    <input required type="password" placeholder="Your password" name="pswd">
+                    <p></p>
+                    <input required type="submit" class="btn-login" value="Login">
+                    <p></p>
+                </form>
+            </center>
+        </div>
+    </div>
+</body>
+
+</html>
