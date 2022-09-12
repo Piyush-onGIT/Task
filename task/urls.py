@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views as v
+from django.contrib import admin
+from django.urls import path
+from django.views.static import serve
+from django.conf.urls import url
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,7 +28,10 @@ urlpatterns = [
     path("home", v.home),
     path("signup", v.signup),
     path("login", v.login),
-    path("logout", v.logout)
+    path("logout", v.logout),
+
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]
 
 # handler404 = 'pages.views.error_404_view'
