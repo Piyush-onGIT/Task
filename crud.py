@@ -87,7 +87,6 @@ def changePwd(username, opswd, pswd):
 
     n += 2
     wks.update_cell(n, 4, pswd)
-    wks.delete_rows(n)
     return True
 
 def delete(username):
