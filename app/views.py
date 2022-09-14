@@ -107,3 +107,24 @@ def logout(request):
     response.delete_cookie("email")
     response.delete_cookie("username")
     return response
+
+def change(request):
+    d = request.POST
+    cook = request.COOKIES
+
+    usnm = cook['username']
+    name = cook['name']
+    old = d['opswd']
+    new = d['pswd']
+    rep = d['rpswd']
+
+    if (new != rep):
+        messages.info(request, 8)
+        return render(request, "welcome.html", {"name": name})
+
+    else:
+        if crud.changePwd(usnm, old, new):
+            return logout(request)
+        else:
+            messages.info(request, 7)
+            return render(request, "welcome.html", {"name": name})

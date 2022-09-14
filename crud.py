@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 from pickletools import read_uint1
+import re
+from xml.etree.ElementPath import ops
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
@@ -59,3 +61,30 @@ def check_mail(mail):
     return False
 
     print(data)
+
+def changePwd(username, opswd, pswd):
+    # print(12)
+    wks = sheet.worksheet("Sheet2")
+    data = wks.get_all_records()
+
+    n = 0
+    for i in data:
+        if str(i['username']) == str(username) and str(i['password']) == str(opswd):
+            # print("here1")
+            break
+        if str(i['username']) == str(username):
+            if str(i["password"]) != str(opswd):
+                print("here2")
+                print(i['password'])
+                return False
+        else:
+            n += 1
+
+    rows = len(sheet.worksheet("Sheet2").get_all_records())
+    if n > rows:
+        print("here1")
+        return False
+
+    n += 2
+    wks.update_cell(n, 4, pswd)
+    return True
