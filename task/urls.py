@@ -30,6 +30,7 @@ urlpatterns = [
     path("login", v.login),
     path("logout", v.logout),
     path("change", v.change),
+    path("delete", v.delete),
 
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 

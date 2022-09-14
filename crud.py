@@ -87,4 +87,27 @@ def changePwd(username, opswd, pswd):
 
     n += 2
     wks.update_cell(n, 4, pswd)
+    wks.delete_rows(n)
+    return True
+
+def delete(username):
+    # print(12)
+    wks = sheet.worksheet("Sheet2")
+    data = wks.get_all_records()
+
+    n = 0
+    for i in data:
+        if str(i['username']) == str(username):
+            # print("here1")
+            break
+        else:
+            n += 1
+
+    rows = len(sheet.worksheet("Sheet2").get_all_records())
+    if n > rows:
+        print("here1")
+        return False
+
+    n += 2
+    wks.delete_rows(n)
     return True

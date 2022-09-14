@@ -128,3 +128,8 @@ def change(request):
         else:
             messages.info(request, 7)
             return render(request, "welcome.html", {"name": name})
+
+def delete(request):
+    username = (request.COOKIES)['username']
+    crud.delete(username)
+    return render(request, "index.html")
